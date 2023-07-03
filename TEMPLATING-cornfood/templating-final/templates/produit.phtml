@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <?php include './templates/blocs/head.phtml' ?>
+<body>
+    <header id="entete">
+        <?php include './templates/blocs/nav.phtml' ?>
+        <div id="titre" class="shorter container d-flex justify-content-between flex-column align-items-center">
+            <h1 class="roboto black">FOOD</h1>
+        </div>
+
+    </header>
+
+    <section id="infos" class="container">
+           
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Cornfood</a></li>
+                <li class="breadcrumb-item"><a href="produits.php">Produits</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Barre protéinée</li>
+            </ol>
+        </nav>
+        <article class="row my-5 align-items-start">
+            <div class="col-12 col-md-3 text-center">
+                <img src="img/products/<?=$product['image']?>" class="img-fluid">
+            </div>
+            <div class="col-12 col-md-5">
+                <h2 class="mb-4"><?=$product['name']?></h2>
+                <h3>Quantité</h3>
+                <div class="d-flex">
+                    <span class="number">-</span>
+                    <input type="text" value="1" id="">
+                    <span class="number">+</span>
+                </div>
+            </div>
+            <div class="col-12 col-md-3 mt-5 mt-md-0 offset-md-1 buy">
+                <h3 class="mb-3">Prix : <?=$product['price']?>€ l'unité</h3>
+                <a href="#" id="buy">Acheter</a>
+            </div>
+        </article>
+        <div class="row">
+            <article class="col-12 col-md-9">
+                <h3 class="mb-4">Description du produit</h3>
+                <?=$product['description']?>
+            </article>
+            <aside class="col-12 col-md-3">
+                <h3 class="mb-4">Composition</h3>
+                <ul>
+                    <?php foreach($product['ingredients'] as $ingredient) : ?>
+                        <li><?=$ingredient?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </aside>
+        </div>
+    </section>
+
+    <section id="avis" class="container mt-5">
+        <h3>Les avis de nos consommateurs</h3>
+        <div class="row mt-5">
+            <div class="col-md-3">
+                <div class="stars mb-3 d-flex align-items-center">
+                    <?php for($i=0; $i<$scoreMoy; $i++) : ?>
+                        <img src="img/star-rate.png" alt="">
+                    <?php endfor; ?>
+                    <?php for($i=0; $i<5-$scoreMoy; $i++) : ?>
+                        <img src="img/star-rate-grey.png" alt="">
+                    <?php endfor; ?>
+                    <span class="ml-3 mt-1"><?=count($product['customers_comm'])?> avis</span>
+                </div>
+            </div>
+            <ul class="col-12 col-md-6">
+                <?php foreach($product['customers_comm'] as $comm) : ?>
+                    <li class="media mb-5"><img src="img/user-frame-33.png" class="mr-3" alt="...">
+                        <div class="media-body">
+                            <h5 class="mt-0"><?=$comm['name']?> <small><?=$comm['date']?></small></h5>
+
+                            <div class="stars mb-3">
+                                <?php for ($i=0; $i<$comm['score']; $i++) : ?>
+                                    <img src="img/star-rate.png" alt="">
+                                <?php endfor; ?>
+                            </div>
+                            <?=$comm['commentary']?>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </section>
+
+
+    <?php include './templates/blocs/footer.phtml' ?>
+
+</body>
+
+</html>
